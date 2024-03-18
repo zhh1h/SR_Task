@@ -29,8 +29,8 @@ class SRCNN(nn.Module):
         return x
 
 def is_pure_color_image(image):
-    # 检查图像是否为纯色，如果是返回True，否则返回False
-    # np.ptp()计算数组中最大值与最小值的差值，如果为0，则图像为纯色
+    # Check if the images are solid
+
     return np.ptp(image) == 0
 
 model = SRCNN()
@@ -60,6 +60,7 @@ hr_num_images = original_slices_data['image'][0].shape[0]
 
 for i in range(hr_num_images):
     image = original_slices_data['image'][0, i]
+    #filter images
     if not is_pure_color_image(image):
         hr.append(image)
 print(f"Number of images in the list: {len(hr)}")
@@ -70,6 +71,7 @@ lr= []
 lr_num_images = blurred_slices_data['image'][0].shape[0]
 for i in range(lr_num_images):
     image = blurred_slices_data['image'][0, i]
+    #filter image
     if not is_pure_color_image(image):
         lr.append(image)
 
