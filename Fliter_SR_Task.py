@@ -28,6 +28,11 @@ class SRCNN(nn.Module):
         x = self.conv3(x)
         return x
 
+def is_pure_color_image(image):
+    # 检查图像是否为纯色，如果是返回True，否则返回False
+    # np.ptp()计算数组中最大值与最小值的差值，如果为0，则图像为纯色
+    return np.ptp(image) == 0
+
 model = SRCNN()
 criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
@@ -55,18 +60,20 @@ hr_num_images = original_slices_data['image'][0].shape[0]
 
 for i in range(hr_num_images):
     image = original_slices_data['image'][0, i]
-    hr.append(image)
-# print(f"Number of images in the list: {len(hr)}")
+    if not is_pure_color_image(image):
+        hr.append(image)
+print(f"Number of images in the list: {len(hr)}")
 
 
 
 lr= []
 lr_num_images = blurred_slices_data['image'][0].shape[0]
-
 for i in range(lr_num_images):
     image = blurred_slices_data['image'][0, i]
-    lr.append(image)
-# print(f"Number of images in the list: {len(lr)}")
+    if not is_pure_color_image(image):
+        lr.append(image)
+
+print(f"Number of images in the list: {len(lr)}")
 
 # plt.imshow(hr[200], cmap='gray')
 #
