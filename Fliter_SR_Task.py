@@ -156,13 +156,7 @@ with torch.no_grad():
     selected_input_np = selected_input.squeeze().cpu().numpy()
     selected_label_np = selected_label.cpu().numpy()
 
-    ## 计算PSNR和SSIM
-    #
-    # win_size = 7  # 或根据你的图像尺寸选择其他合适的值
-    #
-    # ssim = compare_ssim(selected_label_np, output_np_resized, data_range=1, win_size=win_size, channel_axis=-1)
-    # #ssim = compare_ssim(selected_label_np, output_np_resized, data_range=1)
-    # psnr = compare_psnr(selected_label_np, output_np_resized, data_range=1,win_size=win_size,channel_axis=-1)
+
 
 
 # Show the oringinal lr image, reconstruct hr image and original hr image

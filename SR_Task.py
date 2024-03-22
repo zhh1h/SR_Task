@@ -119,7 +119,7 @@ with torch.no_grad():
             ssim = compare_ssim(label, output, data_range=1)
             print(f"Image {total_count + 1}: PSNR={psnr:.2f} dB, SSIM={ssim:.4f}")
 
-            if psnr > 50:
+            if psnr > 30:
                 high_psnr_count += 1
             if ssim > 0.75:
                 high_ssim_count += 1
@@ -129,7 +129,7 @@ with torch.no_grad():
     psnr_ratio = high_psnr_count / total_count
     ssim_ratio = high_ssim_count / total_count
 
-    print(f"PSNR > 50 dB Ratio: {psnr_ratio * 100:.2f}%")
+    print(f"PSNR > 30 dB Ratio: {psnr_ratio * 100:.2f}%")
     print(f"SSIM > 0.75 Ratio: {ssim_ratio * 100:.2f}%")
 
 # randomly pick one image to present
@@ -147,13 +147,7 @@ with torch.no_grad():
     selected_input_np = selected_input.squeeze().cpu().numpy()
     selected_label_np = selected_label.cpu().numpy()
 
-    ## 计算PSNR和SSIM
-    #
-    # win_size = 7  # 或根据你的图像尺寸选择其他合适的值
-    #
-    # ssim = compare_ssim(selected_label_np, output_np_resized, data_range=1, win_size=win_size, channel_axis=-1)
-    # #ssim = compare_ssim(selected_label_np, output_np_resized, data_range=1)
-    # psnr = compare_psnr(selected_label_np, output_np_resized, data_range=1,win_size=win_size,channel_axis=-1)
+
 
 
 # Show the oringinal lr image, reconstruct hr image and original hr image
